@@ -187,7 +187,7 @@ class MusicService : Service() {
 
                 progressHandler.postDelayed(
                     this,
-                    1000
+                    1500
                 )
             }
         }
@@ -495,6 +495,14 @@ class MusicService : Service() {
 
                 mediaPlayer?.seekTo(0)
                 mediaPlayer?.start()
+
+                progressHandler.removeCallbacks(progressRunnable)
+                progressHandler.post(progressRunnable)
+
+                updatePlaybackState()
+                updateMediaMetadata()
+                updateNotification()
+                notifyUI()
 
             } else {
 

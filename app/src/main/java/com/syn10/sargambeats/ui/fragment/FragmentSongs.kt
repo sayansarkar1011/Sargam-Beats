@@ -60,6 +60,8 @@ class FragmentSongs : Fragment(R.layout.fragment_songs) {
 
     companion object {
 
+        var isSelectionMode = false
+
         private val fullSongList = ArrayList<Song>()
         private val displayList = ArrayList<Song>()
         private var adapter: MusicAdapter? = null
@@ -665,50 +667,25 @@ class FragmentSongs : Fragment(R.layout.fragment_songs) {
         }
 
 
+
         backCallback =
             object : OnBackPressedCallback(true) {
 
 
-                override fun handleOnBackPressed() {
 
+
+                override fun handleOnBackPressed() {
 
                     val currentAdapter =
                         binding.rvSongs.adapter as? MusicAdapter
 
+                    if (isSongSelectionActive) {
 
-
-                    if (
-                        isSongSelectionActive
-                    ) {
-
-
-
-                        currentAdapter
-                            ?.clearSelection()
-
-
-
-                        selectedSongList
-                            .clear()
-
-
-
-                        isSongSelectionActive =
-                            false
-
-
-
-                        (activity as? MainActivity)
-                            ?.showShuffleFab()
-
+                        clearSelectionMode()
 
                     } else {
 
-
-                        isEnabled =
-                            false
-
-
+                        isEnabled = false
 
                         requireActivity()
                             .onBackPressedDispatcher
@@ -730,6 +707,28 @@ class FragmentSongs : Fragment(R.layout.fragment_songs) {
 
 
     }
+
+    fun clearSelectionMode() {
+
+        val currentAdapter = binding.rvSongs.adapter as? MusicAdapter
+
+        currentAdapter?.clearSelection()
+
+        selectedSongList.clear()
+
+        isSongSelectionActive = false
+        isSelectionMode = false
+
+        binding.layoutSelectionActions.visibility = View.GONE
+
+        binding.btnSelectAllSongs.text = "Select All"
+
+        (activity as? MainActivity)?.showShuffleFab()
+        backCallback.isEnabled = true
+
+
+    }
+
 
     override fun onActivityResult(
         requestCode: Int,
@@ -1016,71 +1015,34 @@ class FragmentSongs : Fragment(R.layout.fragment_songs) {
 
                 { selectedSongs ->
 
-
-                    isSongSelectionActive =
-                        selectedSongs.isNotEmpty()
-
-
+                    isSongSelectionActive = selectedSongs.isNotEmpty()
+                    isSelectionMode = isSongSelectionActive
 
                     selectedSongList.clear()
+                    selectedSongList.addAll(selectedSongs)
 
+                    if (isSongSelectionActive) {
 
-                    selectedSongList.addAll(
-                        selectedSongs
-                    )
+                        binding.layoutSelectionActions.visibility = View.VISIBLE
 
-
-
-                    if (selectedSongs.isNotEmpty()) {
-
-
-                        binding.layoutSelectionActions.visibility =
-                            View.VISIBLE
-
-
-
-                        (activity as? MainActivity)
-                            ?.hideShuffleFab()
-
-
-
+                        (activity as? MainActivity)?.hideShuffleFab()
 
                         val currentAdapter =
-                            binding.rvSongs.adapter
-                                    as? MusicAdapter
-
-
+                            binding.rvSongs.adapter as? MusicAdapter
 
                         binding.btnSelectAllSongs.text =
-                            if (
-                                currentAdapter?.isAllSelected()
-                                == true
-                            ) {
-
+                            if (currentAdapter?.isAllSelected() == true)
                                 "Unselect All"
-
-                            } else {
-
+                            else
                                 "Select All"
-
-                            }
-
 
                     } else {
 
+                        binding.layoutSelectionActions.visibility = View.GONE
 
-                        binding.layoutSelectionActions.visibility =
-                            View.GONE
+                        binding.btnSelectAllSongs.text = "Select All"
 
-
-
-                        binding.btnSelectAllSongs.text =
-                            "Select All"
-
-
-
-                        (activity as? MainActivity)
-                            ?.showShuffleFab()
+                        (activity as? MainActivity)?.showShuffleFab()
 
                     }
 

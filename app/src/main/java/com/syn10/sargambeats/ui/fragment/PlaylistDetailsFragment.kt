@@ -100,6 +100,18 @@ class PlaylistDetailsFragment :
 
         observeSongs()
 
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : androidx.activity.OnBackPressedCallback(true) {
+
+                override fun handleOnBackPressed() {
+
+                    parentFragmentManager.popBackStack()
+
+                }
+            }
+        )
+
     }
 
     override fun onResume() {

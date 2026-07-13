@@ -168,7 +168,8 @@ class MainActivity : AppCompatActivity() {
         // Bottom nav
         binding.mainIvNavSongs.setOnClickListener {
 
-            updateToolbarByPosition(0)
+            if (isSearchMode) return@setOnClickListener
+
             selectTab(0)
 
         }
@@ -176,7 +177,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainIvNavPlayer.setOnClickListener {
 
-            updateToolbarByPosition(1)
+            if (isSearchMode) return@setOnClickListener
+
             selectTab(1)
 
         }
@@ -184,7 +186,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainIvNavPlaylists.setOnClickListener {
 
-            updateToolbarByPosition(2)
+            if (isSearchMode) return@setOnClickListener
+
             selectTab(2)
 
         }
@@ -192,7 +195,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainIvNavFavourites.setOnClickListener {
 
-            updateToolbarByPosition(3)
+            if (isSearchMode) return@setOnClickListener
+
             selectTab(3)
 
         }
@@ -254,20 +258,16 @@ class MainActivity : AppCompatActivity() {
             object : ViewPager2.OnPageChangeCallback() {
 
 
-                override fun onPageSelected(
-                    position: Int
-                ) {
+                override fun onPageSelected(position: Int) {
 
+                    super.onPageSelected(position)
 
-                    updateToolbarByPosition(
-                        position
-                    )
+                    binding.mainToolbar.post {
 
+                        updateToolbarByPosition(position)
+                        updateBottomNav(position)
 
-                    updateBottomNav(
-                        position
-                    )
-
+                    }
 
                     if (position == 1) {
 
@@ -279,8 +279,6 @@ class MainActivity : AppCompatActivity() {
 
                     }
 
-
-                    // Mini player hide in Playing tab
                     if (position == 1) {
 
                         hideMiniPlayer()
@@ -288,7 +286,7 @@ class MainActivity : AppCompatActivity() {
 
                     } else {
 
-                        if (MusicService.Companion.mediaPlayer != null) {
+                        if (MusicService.mediaPlayer != null) {
 
                             showMiniPlayer()
                             setViewPagerBottomMargin(152)
@@ -302,7 +300,6 @@ class MainActivity : AppCompatActivity() {
 
                         lastNonPlayingTab = position
                     }
-
                 }
 
             }
@@ -326,27 +323,27 @@ class MainActivity : AppCompatActivity() {
 
                     when (binding.viewPager.currentItem) {
 
-                        // Songs Tab -> Exit App
+                        // Songs
                         0 -> {
 
-                            finishAffinity()
-                            return
 
+
+                            finish()
+                            return
                         }
 
-                        // Playing Tab -> Back to previous tab
+                        // Playing / Playlist / Favourite
                         1 -> {
 
-                            selectTab(lastNonPlayingTab)
+                            selectTab(0)
                             return
 
                         }
 
-                        // Playlist / Favourite -> Exit App
-                        else -> {
+                        2, 3 -> {
 
-                            finishAffinity()
-                            return
+                            isEnabled = false
+                            onBackPressedDispatcher.onBackPressed()
 
                         }
 
@@ -553,25 +550,14 @@ class MainActivity : AppCompatActivity() {
     ) {
 
 
-        val title1 =
-            binding.mainToolbar
-                .findViewById<TextView>(
-                    R.id.mini_tv_app_title_sargam
-                )
+        val title1 = binding.mainToolbar.findViewById<TextView>(R.id.mini_tv_app_title_sargam)
+            ?: return
 
+        val title2 = binding.mainToolbar.findViewById<TextView>(R.id.mini_tv_app_title_beats)
+            ?: return
 
-        val title2 =
-            binding.mainToolbar
-                .findViewById<TextView>(
-                    R.id.mini_tv_app_title_beats
-                )
-
-
-        val search =
-            binding.mainToolbar
-                .findViewById<ImageView>(
-                    R.id.main_iv_search
-                )
+        val search = binding.mainToolbar.findViewById<ImageView>(R.id.main_iv_search)
+            ?: return
 
 
         if (title == "SargamBeats") {
@@ -623,35 +609,67 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun enterSearchMode() {
+
         isSearchMode = true
+
+        binding.viewPager.isUserInputEnabled = false
 
         searchEditText = EditText(this).apply {
             hint = "Search songs or artist"
             background = null
+
             addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    FragmentSongs.Companion.filterSongs(s.toString())
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {}
+
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
+                    FragmentSongs.filterSongs(s.toString())
                 }
+
                 override fun afterTextChanged(s: Editable?) {}
             })
         }
 
         binding.mainToolbar.removeAllViews()
         binding.mainToolbar.addView(searchEditText)
+
         searchEditText?.requestFocus()
+
         showKeyboard(searchEditText!!)
     }
 
     private fun exitSearchMode() {
+
         isSearchMode = false
-        FragmentSongs.Companion.clearFilter()
+
+        binding.viewPager.isUserInputEnabled = true
+
+        FragmentSongs.clearFilter()
+
         hideKeyboard()
 
         searchEditText = null
+
         binding.mainToolbar.removeAllViews()
-        layoutInflater.inflate(R.layout.toolbar_main_content, binding.mainToolbar)
+
+        layoutInflater.inflate(
+            R.layout.toolbar_main_content,
+            binding.mainToolbar
+        )
+
         bindToolbarSearchIcon()
+
+        updateToolbarByPosition(binding.viewPager.currentItem)
     }
 
     private fun showKeyboard(view: View) {
@@ -704,17 +722,10 @@ class MainActivity : AppCompatActivity() {
 
     fun selectTab(pos: Int) {
 
-        if (binding.viewPager.currentItem != pos) {
+        if (binding.viewPager.currentItem == pos)
+            return
 
-            binding.viewPager.currentItem =
-                pos
-
-        }
-
-
-        updateBottomNav(
-            pos
-        )
+        binding.viewPager.currentItem = pos
 
     }
 

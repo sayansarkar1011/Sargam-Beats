@@ -599,36 +599,23 @@ class FragmentFavourites : Fragment(R.layout.fragment_favourites) {
 
                     override fun handleOnBackPressed() {
 
-                        if (
-                            isFavouriteSelectionActive
-                        ) {
-
+                        if (isFavouriteSelectionActive) {
 
                             favouriteAdapter.clearSelection()
 
+                            binding.selectionBar.visibility = View.GONE
 
-                            binding.selectionBar.visibility =
-                                View.GONE
+                            isFavouriteSelectionActive = false
 
-
-                            isFavouriteSelectionActive =
-                                false
-
-
-                        } else {
-
-
-                            isEnabled = false
-
-
-                            requireActivity()
-                                .onBackPressedDispatcher
-                                .onBackPressed()
-
+                            return
                         }
 
-                    }
+                        isEnabled = false
 
+                        requireActivity()
+                            .onBackPressedDispatcher
+                            .onBackPressed()
+                    }
                 }
             )
 
