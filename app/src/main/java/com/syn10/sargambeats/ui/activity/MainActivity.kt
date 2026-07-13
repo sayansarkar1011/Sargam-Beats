@@ -789,7 +789,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainFabContainer.visibility = View.VISIBLE
 
-        binding.mainFabShuffle.setImageResource(R.drawable.shuffle_btn)
+        binding.mainFabShuffle.setImageResource(R.drawable.outline_shuffle_24)
 
         binding.mainFabShuffle.setOnClickListener {
 

@@ -216,7 +216,7 @@
             android:id="@+id/main_fab_shuffle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/shuffle_btn"
+            app:srcCompat="@drawable/outline_shuffle_24"
             app:backgroundTint="@color/Theme_main"
             app:tint="@android:color/white"/>
     </com.google.android.material.card.MaterialCardView>

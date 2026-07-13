@@ -15,7 +15,7 @@
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:padding="10dp"
-        android:src="@drawable/favourite_btn"
+        android:src="@drawable/outline_favorite_24"
         android:contentDescription="Favourite"
         android:background="?attr/selectableItemBackgroundBorderless"
         app:tint="?attr/colorOnSurface"
@@ -182,7 +182,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="13dp"
-            android:src="@drawable/shuffle_btn"
+            android:src="@drawable/outline_shuffle_24"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Shuffle"/>
 
@@ -193,7 +193,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="13dp"
-            android:src="@drawable/repeat"
+            android:src="@drawable/outline_repeat_24"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Repeat"/>
 
@@ -204,7 +204,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="13dp"
-            android:src="@drawable/equilizer"
+            android:src="@drawable/outline_equalizer_24"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Equalizer"/>
 
