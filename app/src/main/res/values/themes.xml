@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="Theme.SargamBeats" parent="Theme.Material3.DayNight.NoActionBar">
+
+
+        <!-- BRAND -->
+        <item name="colorPrimary">#0099FF</item>
+
+        <item name="colorPrimaryContainer">#E6F3FF</item>
+
+
+        <!-- SURFACE -->
+        <item name="colorSurface">#FFFFFF</item>
+
+
+        <!-- TEXT -->
+        <item name="colorOnSurface">#222222</item>
+
+        <item name="colorOnSurfaceVariant">#777777</item>
+
+
+        <!-- POPUP MENU STYLE -->
+        <item name="popupMenuStyle">
+            @style/MyPopupMenu
+        </item>
+
+
+        <!-- SYSTEM BARS -->
+        <item name="android:statusBarColor">
+            ?attr/colorSurface
+        </item>
+
+        <item name="android:navigationBarColor">
+            ?attr/colorSurface
+        </item>
+
+
+        <!-- ICON VISIBILITY -->
+        <item name="android:windowLightStatusBar">
+            true
+        </item>
+
+        <item name="android:windowLightNavigationBar"
+            tools:targetApi="27">
+            true
+        </item>
+
+
+        <!-- REQUIRED -->
+        <item name="android:windowDrawsSystemBarBackgrounds">
+            true
+        </item>
+
+
+    </style>
+
+
+
+    <!-- CUSTOM POPUP MENU -->
+
+    <style name="MyPopupMenu">
+
+
+        <item name="android:popupBackground">
+            @drawable/popup_bg
+        </item>
+
+
+    </style>
+
+
+</resources>

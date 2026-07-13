@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="Theme_main">#FF0000</color>
+    <color name="Theme_primary">#FD9A07</color>
+
+    <color name="material_gray">#BDBDBD</color>
+    <color name="gray_light">#E0E0E0</color>
+    <color name="gray">#9E9E9E</color>
+    <color name="gray_dark">#616161</color>
+    <color name="Red">#E1170A</color>
+    <color name="red">#E1170A</color>
+
+    <!-- Used for unselected icons / text -->
+    <color name="colorOnSurface">#222222</color>
+</resources>

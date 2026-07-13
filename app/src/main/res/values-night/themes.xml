@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.SargamBeats" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- BRAND -->
+        <item name="colorPrimary">#0099FF</item>
+        <item name="colorPrimaryContainer">#003A66</item>
+
+        <!-- SURFACE -->
+        <item name="colorSurface">#121212</item>
+
+        <!-- TEXT -->
+        <item name="colorOnSurface">#FFFFFF</item>
+        <item name="colorOnSurfaceVariant">#AAAAAA</item>
+
+        <!-- SYSTEM BARS (SYNC WITH TOP BAR) -->
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+
+        <!-- ICON VISIBILITY -->
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar"
+            tools:targetApi="27">false</item>
+
+        <!-- REQUIRED -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+    </style>
+
+</resources>

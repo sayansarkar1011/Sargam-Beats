@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ================= TOP APP BAR ================= -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main_top_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorSurface"
+            app:contentInsetStartWithNavigation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp">
+
+                <ImageView
+                    android:id="@+id/main_iv_app_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/log_final"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <LinearLayout
+                    android:id="@+id/main_ll_app_title_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toEndOf="@id/main_iv_app_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:id="@+id/main_tv_app_title_sargam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sargam "
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/main_tv_app_title_beats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Beats"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/Red" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/main_iv_search"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/search"
+                    android:padding="4dp"
+                    app:tint="?attr/colorOnSurface"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/material_gray"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ================= VIEWPAGER ================= -->
+    <!-- bottom space = mini player (72dp) + nav (80dp) -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="152dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <!-- ================= BOTTOM STACK ================= -->
+    <LinearLayout
+        android:id="@+id/main_bottom_stack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="?attr/colorSurface">
+
+        <!-- MINI PLAYER -->
+        <include
+            android:id="@+id/miniPlayerContainer"
+            layout="@layout/layout_mini_player"/>
+
+        <!-- DIVIDER -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/material_gray"/>
+
+        <!-- BOTTOM NAV -->
+        <LinearLayout
+            android:id="@+id/main_bottom_nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="?attr/colorSurface"
+            android:elevation="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/main_iv_nav_songs"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/music"
+                    app:tint="?attr/colorOnSurface"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/main_iv_nav_player"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/now_playing"
+                    app:tint="?attr/colorOnSurface"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/main_iv_nav_playlists"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/playlist_btn"
+                    app:tint="?attr/colorOnSurface"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/main_iv_nav_favourites"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/favourite_btn"
+                    app:tint="?attr/colorOnSurface"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ================= FLOATING THEME BUTTON ================= -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/main_theme_fab_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="238dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@android:color/transparent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_fab_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/outline_sunny_24"
+            app:backgroundTint="@color/Theme_main"
+            app:tint="@android:color/white"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- ================= FLOATING SHUFFLE BUTTON ================= -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/main_fab_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="168dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@android:color/transparent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_fab_shuffle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/shuffle_btn"
+            app:backgroundTint="@color/Theme_main"
+            app:tint="@android:color/white"/>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="?attr/colorSurface">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/rvPlaylists"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:paddingTop="8dp"
+
+        android:paddingBottom="75dp"
+
+        android:clipToPadding="false"/>
+
+
+
+
+    <TextView
+
+        android:id="@+id/tvNoPlaylist"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:gravity="center"
+
+        android:text="No Playlist"
+
+        android:textSize="18sp"
+
+        android:textColor="?attr/colorOnSurface"
+
+        android:visibility="gone"/>
+
+
+
+
+
+    <FrameLayout
+
+        android:id="@+id/playlistContainer"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</FrameLayout>

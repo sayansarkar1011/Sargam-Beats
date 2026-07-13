@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+
+    <external-storage-path
+        name="music"
+        path="." />
+
+    <external-files-path
+        name="external_files"
+        path="." />
+
+</paths>
