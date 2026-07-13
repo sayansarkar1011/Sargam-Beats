@@ -283,7 +283,10 @@ class MusicService : Service() {
                     notifyUI()
                 }
             })
-
+            setFlags(
+                MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or
+                        MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS
+            )
             isActive = true
         }
 
@@ -303,17 +306,25 @@ class MusicService : Service() {
         )
 
         when (intent?.action) {
+
             ACTION_PLAY -> handlePlay()
+
             ACTION_PLAY_NEW -> playFresh()
+
             ACTION_PAUSE -> pauseSong()
+
             ACTION_NEXT -> nextSong()
+
             ACTION_PREV -> prevSong()
+
             ACTION_SEEK -> {
+
                 val pos = intent.getIntExtra("pos", 0)
 
                 mediaPlayer?.seekTo(pos)
 
                 updatePlaybackState()
+                updateMediaMetadata()
                 updateNotification()
                 notifyUI()
             }
@@ -345,6 +356,7 @@ class MusicService : Service() {
             fadeVolume(0f, 1f, 400)
             updateMediaMetadata()
             updatePlaybackState()
+            updateNotification()
             startProgressTicker()
             notifyUI()
         } else if (mp == null) {
@@ -538,11 +550,9 @@ class MusicService : Service() {
 
 
         updateMediaMetadata()
-
         updatePlaybackState()
-
+        updateNotification()
         startProgressTicker()
-
         notifyUI()
 
         songChangeCallback?.invoke()
@@ -555,6 +565,7 @@ class MusicService : Service() {
         isPlaying = false
 
         updatePlaybackState()
+        updateMediaMetadata()
         stopProgressTicker()
 
         // instantly update all UI
@@ -663,6 +674,7 @@ class MusicService : Service() {
 
                 .setActions(
                     PlaybackStateCompat.ACTION_PLAY or
+                            PlaybackStateCompat.ACTION_PLAY_PAUSE or
                             PlaybackStateCompat.ACTION_PAUSE or
                             PlaybackStateCompat.ACTION_SKIP_TO_NEXT or
                             PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS or

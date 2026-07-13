@@ -317,63 +317,41 @@ class MainActivity : AppCompatActivity() {
 
                 override fun handleOnBackPressed() {
 
-
                     if (isSearchMode) {
 
-
                         exitSearchMode()
-
-
                         return
 
                     }
 
+                    when (binding.viewPager.currentItem) {
 
-                    if (
-                        binding.viewPager.currentItem == 0
-                    ) {
+                        // Songs Tab -> Exit App
+                        0 -> {
 
+                            finishAffinity()
+                            return
 
-                        isEnabled = false
+                        }
 
+                        // Playing Tab -> Back to previous tab
+                        1 -> {
 
-                        onBackPressedDispatcher
-                            .onBackPressed()
+                            selectTab(lastNonPlayingTab)
+                            return
 
+                        }
 
-                        isEnabled = true
+                        // Playlist / Favourite -> Exit App
+                        else -> {
 
+                            finishAffinity()
+                            return
 
-                        return
-
-                    }
-
-
-
-                    if (
-                        binding.viewPager.currentItem == 1
-                    ) {
-
-
-                        selectTab(
-                            lastNonPlayingTab
-                        )
-
-
-                        return
+                        }
 
                     }
-
-
-
-                    isEnabled = false
-
-
-                    onBackPressedDispatcher
-                        .onBackPressed()
-
                 }
-
             }
         )
     }
